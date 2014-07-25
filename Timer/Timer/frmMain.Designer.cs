@@ -35,9 +35,9 @@
             this.btnReset = new System.Windows.Forms.Button();
             this.timRefresh = new System.Windows.Forms.Timer(this.components);
             this.MnuRBC = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.txtUserInput = new System.Windows.Forms.ToolStripTextBox();
-            this.topToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.topToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtUserInput = new System.Windows.Forms.ToolStripTextBox();
             this.timeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labUserInput = new System.Windows.Forms.Label();
             this.MnuRBC.SuspendLayout();
@@ -102,7 +102,22 @@
             this.txtUserInput,
             this.timeToolStripMenuItem});
             this.MnuRBC.Name = "MnuRBC";
-            this.MnuRBC.Size = new System.Drawing.Size(161, 117);
+            this.MnuRBC.Size = new System.Drawing.Size(161, 95);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // topToolStripMenuItem
+            // 
+            this.topToolStripMenuItem.CheckOnClick = true;
+            this.topToolStripMenuItem.Name = "topToolStripMenuItem";
+            this.topToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.topToolStripMenuItem.Text = "Stay Top";
+            this.topToolStripMenuItem.Click += new System.EventHandler(this.topToolStripMenuItem_Click);
             // 
             // txtUserInput
             // 
@@ -116,21 +131,6 @@
             this.txtUserInput.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUserInput_KeyPress);
             this.txtUserInput.Click += new System.EventHandler(this.txtUserInput_Click);
             this.txtUserInput.DoubleClick += new System.EventHandler(this.txtUserInput_DoubleClick);
-            // 
-            // topToolStripMenuItem
-            // 
-            this.topToolStripMenuItem.CheckOnClick = true;
-            this.topToolStripMenuItem.Name = "topToolStripMenuItem";
-            this.topToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.topToolStripMenuItem.Text = "Stay Top";
-            this.topToolStripMenuItem.Click += new System.EventHandler(this.topToolStripMenuItem_Click);
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.exitToolStripMenuItem.Text = "Exit";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // timeToolStripMenuItem
             // 
@@ -156,9 +156,11 @@
             this.AcceptButton = this.btnStart;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(296, 54);
             this.ContextMenuStrip = this.MnuRBC;
+            this.ControlBox = false;
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.labUserInput);
             this.Controls.Add(this.labTime);
@@ -167,6 +169,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Location = new System.Drawing.Point(100, 100);
             this.Name = "frmMain";
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Timer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
