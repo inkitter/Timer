@@ -40,6 +40,7 @@
             this.txtUserInput = new System.Windows.Forms.ToolStripTextBox();
             this.timeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.labUserInput = new System.Windows.Forms.Label();
+            this.transparentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuRBC.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,9 +101,10 @@
             this.exitToolStripMenuItem,
             this.topToolStripMenuItem,
             this.txtUserInput,
-            this.timeToolStripMenuItem});
+            this.timeToolStripMenuItem,
+            this.transparentToolStripMenuItem});
             this.MnuRBC.Name = "MnuRBC";
-            this.MnuRBC.Size = new System.Drawing.Size(161, 95);
+            this.MnuRBC.Size = new System.Drawing.Size(161, 139);
             // 
             // exitToolStripMenuItem
             // 
@@ -151,6 +153,14 @@
             this.labUserInput.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ffrmmousedown);
             this.labUserInput.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ffrmmousemove);
             // 
+            // transparentToolStripMenuItem
+            // 
+            this.transparentToolStripMenuItem.Name = "transparentToolStripMenuItem";
+            this.transparentToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.transparentToolStripMenuItem.Text = "Transparent";
+            this.transparentToolStripMenuItem.Visible = false;
+            this.transparentToolStripMenuItem.Click += new System.EventHandler(this.transparentToolStripMenuItem_Click);
+            // 
             // frmMain
             // 
             this.AcceptButton = this.btnStart;
@@ -194,6 +204,7 @@
         private System.Windows.Forms.ToolStripMenuItem timeToolStripMenuItem;
         private System.Windows.Forms.ToolStripTextBox txtUserInput;
         private System.Windows.Forms.Label labUserInput;
+        private System.Windows.Forms.ToolStripMenuItem transparentToolStripMenuItem;
     }
 }
 

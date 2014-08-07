@@ -150,8 +150,18 @@ namespace Timer
 
         private void topToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (topToolStripMenuItem.Checked == true) { this.TopMost = true; this.Opacity = 0.6; }
-            else { this.TopMost = false; this.Opacity = 1; }
+            if (topToolStripMenuItem.Checked == true) { 
+                this.TopMost = true; 
+                this.Opacity = 0.6;
+                transparentToolStripMenuItem.Visible = true;
+                transparentToolStripMenuItem.Checked = true;
+            }
+            else { 
+                this.TopMost = false; 
+                this.Opacity = 1;
+                transparentToolStripMenuItem.Visible = false;
+                transparentToolStripMenuItem.Checked = false;
+            }
         }
         //置顶并改变透明度
 
@@ -187,6 +197,23 @@ namespace Timer
         {
             if (bShowBtn == true) { bShowBtn = false; this.Width = 178; }
             else { bShowBtn = true; this.Width = 294; }
+        }
+
+        private void transparentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (transparentToolStripMenuItem.Checked == true){
+                transparentToolStripMenuItem.Checked = false;
+            }
+            else
+            {
+                transparentToolStripMenuItem.Checked = true;
+            }
+            if (transparentToolStripMenuItem.Checked==true){
+                this.Opacity = 0.6;
+            }
+            else{
+                this.Opacity=1;
+            }
         }
     }
 }
