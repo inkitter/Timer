@@ -9,7 +9,6 @@ D:\GitHub\Timer_Cs\Timer\Timer\obj\Release\Timer.pdb
 D:\GitHub\Timer\Timer\Timer\bin\Release\Timer.exe.config
 D:\GitHub\Timer\Timer\Timer\bin\Release\Timer.exe
 D:\GitHub\Timer\Timer\Timer\bin\Release\Timer.pdb
-D:\GitHub\Timer\Timer\Timer\obj\Release\Timer.csprojResolveAssemblyReference.cache
 D:\GitHub\Timer\Timer\Timer\obj\Release\Timer.frmMain.resources
 D:\GitHub\Timer\Timer\Timer\obj\Release\Timer.Properties.Resources.resources
 D:\GitHub\Timer\Timer\Timer\obj\Release\Timer.csproj.GenerateResource.Cache
