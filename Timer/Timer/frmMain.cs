@@ -700,6 +700,8 @@ namespace Timer
             while (hwndkp != IntPtr.Zero)
             {
                 PostMessage(hwndkp, WM_KEYDOWN, kp1, 0);
+                Thread.Sleep(5);
+                PostMessage(hwndkp, WM_KEYUP, kp1, 0);
                 Thread.Sleep(kpt1);
             }
         }
@@ -709,6 +711,8 @@ namespace Timer
             while (hwndkp != IntPtr.Zero)
             {
                 PostMessage(hwndkp, WM_KEYDOWN, kp2, 0);
+                Thread.Sleep(5);
+                PostMessage(hwndkp, WM_KEYUP, kp2, 0);
                 Thread.Sleep(kpt2);
             }
             Thread.Sleep(kpt2);
@@ -719,6 +723,8 @@ namespace Timer
             while (hwndkp != IntPtr.Zero)
             {
                 PostMessage(hwndkp, WM_KEYDOWN, kp3, 0);
+                Thread.Sleep(5);
+                PostMessage(hwndkp, WM_KEYUP, kp3, 0);
                 Thread.Sleep(kpt3);
             }
             Thread.Sleep(kpt3);
@@ -729,6 +735,8 @@ namespace Timer
             while (hwndkp != IntPtr.Zero)
             {
                 PostMessage(hwndkp, WM_KEYDOWN, kp4, 0);
+                Thread.Sleep(5);
+                PostMessage(hwndkp, WM_KEYUP, kp4, 0);
                 Thread.Sleep(kpt4);
             }
             Thread.Sleep(kpt4);
