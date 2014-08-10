@@ -20,7 +20,7 @@ namespace Timer
         public class HotKeys
         {
             
-            int keyid = 10;
+            int keyid = 202;
             Dictionary<int, HotKeyCallBackHanlder> keymap = new Dictionary<int, HotKeyCallBackHanlder>();
             public delegate void HotKeyCallBackHanlder();
             public enum HotkeyModifiers
@@ -30,14 +30,11 @@ namespace Timer
                 Shift = 4,
                 Win = 8
             }
-            [DllImport("user32.dll")]
-            static extern bool RegisterHotKey(IntPtr hWnd, int id, int modifiers, Keys vk);
-            [DllImport("user32.dll")]
-            static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+
 
             public void Regist(IntPtr hWnd, int modifiers, Keys vk, HotKeyCallBackHanlder callBack)
             {
-                int id = keyid++;
+                int id = keyid;
                 if (!RegisterHotKey(hWnd, id, modifiers, vk))
                     throw new Exception("注册失败！");
                 keymap[id] = callBack;
@@ -45,11 +42,12 @@ namespace Timer
 
             public void UnRegist(IntPtr hWnd, HotKeyCallBackHanlder callBack)
             {
-                foreach (KeyValuePair<int, HotKeyCallBackHanlder> var in keymap)
-                {
-                    if (var.Value == callBack)
-                        UnregisterHotKey(hWnd, var.Key);
-                }
+                //foreach (KeyValuePair<int, HotKeyCallBackHanlder> var in keymap)
+                //{
+                //    if (var.Value == callBack)
+                //        UnregisterHotKey(hWnd, var.Key);
+                //}
+                UnregisterHotKey(hWnd, keyid);
             }
 
             public void ProcessHotKey(Message m)
@@ -63,6 +61,9 @@ namespace Timer
                 }
             }
         }
+
+        //全局快捷键类
+
         public class IniFile
         {
             private string FFileName;
@@ -104,7 +105,8 @@ namespace Timer
                 WritePrivateProfileString(section, null, null, FFileName);
             }
         }
-        
+        //ini文件类
+
         HotKeys h = new HotKeys();
         const int WM_KEYDOWN = 0x0100;
         const int WM_KEYUP = 0x0101;
@@ -121,6 +123,11 @@ namespace Timer
         private static extern IntPtr WindowFromPoint(int px, int py);
         [DllImport("kernel32")]
         private static extern bool WritePrivateProfileString(string lpAppName, string lpKeyName, string lpString, string lpFileName);
+        [DllImport("user32.dll")]
+        static extern bool RegisterHotKey(IntPtr hWnd, int id, int modifiers, Keys vk);
+        [DllImport("user32.dll")]
+        static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+        //winAPI声明
 
         delegate void SetTextCallback(string text);
 
@@ -134,6 +141,7 @@ namespace Timer
         static int kp1 = 49, kp2 = 50, kp3 = 51, kp4 = 52;
         IniFile finiset = new IniFile(".\\Timer.ini");
         KeyEventArgs e1, e2, e3, e4;
+        //变量声明
 
         public frmMain()
         {
@@ -146,17 +154,10 @@ namespace Timer
             timeToolStripMenuItem.Text = DateTime.Now.ToString();  //程序开启时间
             labUserInput.Text = "";
             System.Windows.Forms.Keys key = (System.Windows.Forms.Keys)Enum.Parse(typeof(System.Windows.Forms.Keys), txtHotKey.Text);
-            try
-            {
-                h.Regist(this.Handle, 0, key, OnHotkey);
-                Setstat("Hotkey Registered ");
-            }
-            catch
-            {
-                Setstat("Hotkey Reg Error");
-            }
+            fhotkeyChange();
 
         }
+
         private void valueRefresh()
         {
             kp1 = Convert.ToInt16(txtKeypress1.Text);
@@ -169,6 +170,8 @@ namespace Timer
             kpt4 = Convert.ToInt16(txtKPTime4.Text);
             label1.Text = ((Keys)kp1).ToString() + "\r\n" + ((Keys)kp2).ToString() + "\r\n" + ((Keys)kp3).ToString() + "\r\n" + ((Keys)kp4).ToString();
         }
+        //刷新自动按键各变量
+
         private void iniread()
         {
             
@@ -185,6 +188,7 @@ namespace Timer
                 txtKPTime3.Text = finiset.ReadString("KeyPress", "kpt3", null);
                 txtKPTime4.Text = finiset.ReadString("KeyPress", "kpt4", null);
                 txtHotKey.Text = finiset.ReadString("KeyPress", "HotKey", null);
+                if (txtHotKey.Text == "") { txtHotKey.Text = "F10"; }
                 valueRefresh();
             }
             catch
@@ -192,6 +196,7 @@ namespace Timer
 
             }
         }
+        //读取ini文件
 
         private void iniwrite()
         {
@@ -215,12 +220,14 @@ namespace Timer
 
             }
         }
+        //保存ini文件
 
         public void OnHotkey()
         {
             btnKeyPressStart_Click(null,null);
             Setstat("Hotkey Get");
         }
+        //全局快捷键触发事件
 
         protected override void WndProc(ref Message m)//监视Windows消息
         {
@@ -229,7 +236,6 @@ namespace Timer
             {
                 case WM_HOTKEY:
                     btnKeyPressStart_Click(null,null);//调用主处理程序
-                    Setstat("Hotkey Get proc");
                     break;
             }
             base.WndProc(ref m);
@@ -249,6 +255,7 @@ namespace Timer
             this.Location = new Point(cur.X - offset.X, cur.Y - offset.Y);
         }
         //点击任意位置移动窗体
+
         private void ffrmmouseup(object sender, MouseEventArgs e)
         {
 
@@ -267,7 +274,7 @@ namespace Timer
                 Thread.Sleep(100);
             }
         }
-        //计时线程
+        //计时用线程
 
         private void btnStart_Click(object sender, EventArgs e)
         {
@@ -286,7 +293,7 @@ namespace Timer
                 fSaveNowTime("Pause");
             }
         }
-        //开始按钮
+        //开始计时按钮
 
         private void fSaveNowTime(string prestr)
         {
@@ -324,7 +331,7 @@ namespace Timer
             switch (ShowType)
             {
                 case 1:
-                    
+        
                     break;
                 default:
                     labTime.Text = hh + ":" + mm + ":" + ss + "." + imsecond;
@@ -361,7 +368,43 @@ namespace Timer
             {
 
             }
-            
+            try
+            {
+                tkp1.Abort();
+                Setlab("S", 1);
+            }
+            catch
+            {
+
+            }
+
+            try
+            {
+                tkp2.Abort();
+                Setlab("S", 2);
+            }
+            catch
+            {
+
+            }
+            try
+            {
+                tkp3.Abort();
+                Setlab("S", 3);
+            }
+            catch
+            {
+
+            }
+            try
+            {
+                tkp4.Abort();
+                Setlab("S", 4);
+            }
+            catch
+            {
+
+            }
             //防止退出线程未关闭
         }
 
@@ -537,7 +580,7 @@ namespace Timer
         private void btnKeyPressStart_Click(object sender, EventArgs e)
         {
             iniwrite();
-            if (btnKeyPressStart.Text=="Start")
+            if (btnKeyPressStart.Text=="Start"&&txtHotKey.Focused==false)
             {
                 valueRefresh();
                 btnKeyPressStart.Text = "Stop";
@@ -747,9 +790,16 @@ namespace Timer
             //TextBox sendertxtBox = (TextBox)sender;
             //txtKeypress_KeyDown(sender, e, sendertxtBox);
             txtHotKey.Text = e.KeyData.ToString();
+            fhotkeyChange();
+        }
+
+        private void fhotkeyChange()
+        {
+            System.Windows.Forms.Keys key = (System.Windows.Forms.Keys)Enum.Parse(typeof(System.Windows.Forms.Keys), txtHotKey.Text);
             try
             {
-                h.UnRegist(this.Handle, OnHotkey);
+                UnregisterHotKey(Handle, 202);
+                //Setstat("Hotkey UnRegistered");
             }
             catch
             {
@@ -757,8 +807,15 @@ namespace Timer
             }
             try
             {
-                h.Regist(this.Handle, 0, e.KeyData, OnHotkey);
-                Setstat("Hotkey Registered ");
+                if (txtHotKey.Text != "Escape")
+                {
+                    h.Regist(this.Handle, 0, key, OnHotkey);
+                    Setstat("Hotkey Registered: " + txtHotKey.Text);
+                }
+                else
+                {
+                    Setstat("Hotkey not set");
+                }
             }
             catch
             {

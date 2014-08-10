@@ -14,3 +14,7 @@ D:\GitHub\Timer\Timer\Timer\obj\Release\Timer.Properties.Resources.resources
 D:\GitHub\Timer\Timer\Timer\obj\Release\Timer.csproj.GenerateResource.Cache
 D:\GitHub\Timer\Timer\Timer\obj\Release\Timer.exe
 D:\GitHub\Timer\Timer\Timer\obj\Release\Timer.pdb
+D:\Github\Timer\Timer\Timer\bin\Release\Timer.exe.manifest
+D:\Github\Timer\Timer\Timer\bin\Release\Timer.application
+D:\Github\Timer\Timer\Timer\obj\Release\Timer.exe.manifest
+D:\Github\Timer\Timer\Timer\obj\Release\Timer.application
