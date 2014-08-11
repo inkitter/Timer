@@ -578,6 +578,39 @@ namespace Timer
             catch { }
         }
 
+        private void fPlaySound(int playtype=1)     //1=开始 2=停止
+        {
+            try
+            {
+                System.Media.SoundPlayer play=new System.Media.SoundPlayer();
+                switch (playtype)
+                {
+                    case 1:
+                        {
+                            play.SoundLocation = Directory.GetCurrentDirectory() + "/start.wav";
+                            break;
+                        }
+                    case 2:
+                        {
+                            play.SoundLocation = Directory.GetCurrentDirectory() + "/stop.wav";
+                            break;
+                        }
+                    default:
+                        {
+                            play.SoundLocation = Directory.GetCurrentDirectory() + "/start.wav";
+                            break;
+                        }
+                }
+                play.Load();
+                play.Play();
+                play.Dispose();
+            }
+            catch
+            {
+
+            }
+        }
+
         private void btnKeyPressStart_Click(object sender, EventArgs e)
         {
             //iniwrite();
@@ -589,6 +622,7 @@ namespace Timer
                 labTime.ForeColor = System.Drawing.Color.Red;
                 hwndkp = WindowFromPoint(Cursor.Position.X, Cursor.Position.Y);
                 Setstat("AutoKey Press Win ID:" + hwndkp.ToString() + " \r\n");
+                fPlaySound(1);
                 if (kp1 >=32 && kp1<=225)
                 {
                     tkp1 = new Thread(skp1);
@@ -616,6 +650,7 @@ namespace Timer
                 btnKeyPressStart.Enabled = false;
                 txtStatus.ReadOnly = false;
                 labTime.ForeColor = System.Drawing.Color.Black;
+                fPlaySound(2);
                 Setstat("- ");
                 try 
                 {
