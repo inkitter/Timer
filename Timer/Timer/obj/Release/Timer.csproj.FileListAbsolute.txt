@@ -18,4 +18,3 @@ D:\Github\Timer\Timer\Timer\bin\Release\Timer.exe.manifest
 D:\Github\Timer\Timer\Timer\bin\Release\Timer.application
 D:\Github\Timer\Timer\Timer\obj\Release\Timer.exe.manifest
 D:\Github\Timer\Timer\Timer\obj\Release\Timer.application
-D:\GitHub\Timer\Timer\Timer\obj\Release\Timer.csprojResolveAssemblyReference.cache

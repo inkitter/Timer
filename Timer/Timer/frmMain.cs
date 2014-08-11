@@ -20,7 +20,7 @@ namespace Timer
         public class HotKeys
         {
             
-            int keyid = 202;
+            
             Dictionary<int, HotKeyCallBackHanlder> keymap = new Dictionary<int, HotKeyCallBackHanlder>();
             public delegate void HotKeyCallBackHanlder();
             public enum HotkeyModifiers
@@ -32,23 +32,23 @@ namespace Timer
             }
 
 
-            public void Regist(IntPtr hWnd, int modifiers, Keys vk, HotKeyCallBackHanlder callBack)
-            {
-                int id = keyid;
-                if (!RegisterHotKey(hWnd, id, modifiers, vk))
-                    throw new Exception("注册失败！");
-                keymap[id] = callBack;
-            }
+            //public void Regist(IntPtr hWnd, int modifiers, Keys vk, HotKeyCallBackHanlder callBack)
+            //{
+            //    int id = keyid;
+            //    if (!RegisterHotKey(hWnd, id, modifiers, vk))
+            //        throw new Exception("注册失败！");
+            //    keymap[id] = callBack;
+            //}
 
-            public void UnRegist(IntPtr hWnd, HotKeyCallBackHanlder callBack)
-            {
-                //foreach (KeyValuePair<int, HotKeyCallBackHanlder> var in keymap)
-                //{
-                //    if (var.Value == callBack)
-                //        UnregisterHotKey(hWnd, var.Key);
-                //}
-                UnregisterHotKey(hWnd, keyid);
-            }
+            //public void UnRegist(IntPtr hWnd, HotKeyCallBackHanlder callBack)
+            //{
+            //    //foreach (KeyValuePair<int, HotKeyCallBackHanlder> var in keymap)
+            //    //{
+            //    //    if (var.Value == callBack)
+            //    //        UnregisterHotKey(hWnd, var.Key);
+            //    //}
+            //    UnregisterHotKey(hWnd, keyid);
+            //}
 
             public void ProcessHotKey(Message m)
             {
@@ -141,6 +141,7 @@ namespace Timer
         static int kp1 = 49, kp2 = 50, kp3 = 51, kp4 = 52;
         IniFile finiset = new IniFile(".\\Timer.ini");
         KeyEventArgs e1, e2, e3, e4;
+        static int keyid = 202;
         //变量声明
 
         public frmMain()
@@ -362,7 +363,7 @@ namespace Timer
             }
             try
             {
-                h.UnRegist(this.Handle, OnHotkey);
+                UnregisterHotKey(Handle, keyid);
             }
             catch
             {
@@ -829,28 +830,36 @@ namespace Timer
             System.Windows.Forms.Keys key = (System.Windows.Forms.Keys)Enum.Parse(typeof(System.Windows.Forms.Keys), txtHotKey.Text);
             try
             {
-                UnregisterHotKey(Handle, 202);
+                UnregisterHotKey(Handle, keyid);
                 //Setstat("Hotkey UnRegistered");
             }
             catch
             {
 
             }
-            try
+            for (int i = 202; i < 213; i++)
             {
-                if (txtHotKey.Text != "Escape")
+                try
                 {
-                    h.Regist(this.Handle, 0, key, OnHotkey);
-                    Setstat("Hotkey Registered: " + txtHotKey.Text);
+                    if (txtHotKey.Text != "Escape")
+                    {
+                        RegisterHotKey(Handle, i, 0, key);
+                        Setstat("Hotkey Registered: ("+i+") "+  txtHotKey.Text+ " \r\n");
+                    }
+                    else
+                    {
+                        Setstat("Hotkey not set" + " \r\n");
+                    }
                 }
-                else
+                catch
                 {
-                    Setstat("Hotkey not set" + " \r\n");
+                    Setstat("Hotkey Reg Error id=" +i+ " \r\n");
                 }
-            }
-            catch
-            {
-                Setstat("Hotkey Reg Error" + " \r\n");
+                finally
+                {
+                    keyid=i;
+                    i = 221;
+                }
             }
         }
 
