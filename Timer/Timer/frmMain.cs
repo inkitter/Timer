@@ -225,7 +225,7 @@ namespace Timer
         public void OnHotkey()
         {
             btnKeyPressStart_Click(null,null);
-            Setstat("Hotkey Get");
+            Setstat("Hotkey Get" + " \r\n");
         }
         //全局快捷键触发事件
 
@@ -298,7 +298,7 @@ namespace Timer
         private void fSaveNowTime(string prestr)
         {
                 timeToolStripMenuItem.Text = prestr+":" + DateTime.Now.ToLongTimeString();
-                Setstat(prestr);
+                Setstatt(prestr + " \r\n");
         }
         //保存开始计时时间
 
@@ -309,9 +309,9 @@ namespace Timer
             flabTimeChange(0);
             if (timRefresh.Enabled == true)
             {
-                fSaveNowTime("Start: ");
+                fSaveNowTime("Start ");
             }
-            else { fSaveNowTime("Reset: "); }
+            else { fSaveNowTime("Reset "); }
         }
         //重置按钮
 
@@ -415,14 +415,14 @@ namespace Timer
                 this.Opacity = 0.6;
                 transparentToolStripMenuItem.Visible = true;
                 transparentToolStripMenuItem.Checked = true;
-                Setstat("Set Top ");
+                Setstatt("Set Top " + " \r\n");
             }
             else { 
                 this.TopMost = false; 
                 this.Opacity = 1;
                 transparentToolStripMenuItem.Visible = false;
                 transparentToolStripMenuItem.Checked = false;
-                Setstat("Uncheck Set Top ");
+                Setstatt("Uncheck Set Top " + " \r\n");
             }
         }
         //置顶并改变透明度
@@ -430,7 +430,7 @@ namespace Timer
         private void txtUserInput_DoubleClick(object sender, EventArgs e)
         {
             txtUserInput.ReadOnly = false;
-            Setstat("Locked ");
+            Setstatt("Locked ");
         }
 
         private void txtUserInput_KeyPress(object sender, KeyPressEventArgs e)
@@ -458,7 +458,7 @@ namespace Timer
 
         private void labTime_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (bShowBtn == true) { bShowBtn = false; this.Width = 178; this.Height = 50; }
+            if (bShowBtn == true) { bShowBtn = false; this.Width = 200; this.Height = 50; }
             else { bShowBtn = true; this.Width = 296; this.Height = 326; }
         }
 
@@ -539,13 +539,13 @@ namespace Timer
                     }
             }
             valueRefresh();
-            
         }
 
         private void txtKPTime1_TextChanged(object sender, EventArgs e)
         {
             TextBox sendertxtBox = (TextBox)sender;
             txt_TextChanged(sender, e, sendertxtBox);
+            valueRefresh();
         }
 
         private void txtKPTime1_KeyPress(object sender, KeyPressEventArgs e)
@@ -579,13 +579,15 @@ namespace Timer
 
         private void btnKeyPressStart_Click(object sender, EventArgs e)
         {
-            iniwrite();
-            if (btnKeyPressStart.Text=="Start"&&txtHotKey.Focused==false)
+            //iniwrite();
+            if (btnKeyPressStart.Text == "Start" && txtHotKey.Focused == false)
             {
-                valueRefresh();
                 btnKeyPressStart.Text = "Stop";
+                btnKeyPressStart.Enabled = true;
+                txtStatus.ReadOnly = true;
+                labTime.ForeColor = System.Drawing.Color.Red;
                 hwndkp = WindowFromPoint(Cursor.Position.X, Cursor.Position.Y);
-                Setstat("AutoKey Press Win ID:"+hwndkp.ToString());
+                Setstat("AutoKey Press Win ID:" + hwndkp.ToString() + " \r\n");
                 if (kp1 >=32 && kp1<=225)
                 {
                     tkp1 = new Thread(skp1);
@@ -610,6 +612,10 @@ namespace Timer
             else
             {
                 btnKeyPressStart.Text = "Start";
+                btnKeyPressStart.Enabled = false;
+                txtStatus.ReadOnly = false;
+                labTime.ForeColor = System.Drawing.Color.Black;
+                Setstat("- ");
                 try 
                 {
                     tkp1.Abort();
@@ -651,16 +657,40 @@ namespace Timer
         }
         private void Setstat(string text)
         {
-            if (this.txtStatus.InvokeRequired)
+            if (timRefresh.Enabled == true)
             {
-                SetTextCallback d = new SetTextCallback(Setstat);
-                this.Invoke(d, new object[] { DateTime.Now.ToLongTimeString()+":"+text + " \r\n" });
+                string stime = "";
+                stime = labTime.Text.Substring(3,5);
+                if (this.txtStatus.InvokeRequired)
+                {
+                    SetTextCallback d = new SetTextCallback(Setstat);
+                    this.Invoke(d, new object[] { stime + " " + text });
+                }
+                else
+                {
+                    this.txtStatus.Text = stime + " " + text + this.txtStatus.Text;
+                }
             }
             else
             {
-                this.txtStatus.Text = DateTime.Now.ToLongTimeString()+":"+ text + " \r\n" + this.txtStatus.Text;
+                Setstatt(text);
             }
         }
+        //keypress log 记录
+
+        private void Setstatt(string text)
+        {
+            if (this.txtStatus.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(Setstat);
+                this.Invoke(d, new object[] { DateTime.Now.ToLongTimeString() + " " + text });
+            }
+            else
+            {
+                this.txtStatus.Text = DateTime.Now.ToLongTimeString() + " " + text + this.txtStatus.Text;
+            }
+        }
+        //timer log 记录
 
         private void SetlabT1(string text)
         {
@@ -742,6 +772,7 @@ namespace Timer
             Setlab("R",1);
             while (hwndkp != IntPtr.Zero)
             {
+                //valueRefresh();
                 PostMessage(hwndkp, WM_KEYDOWN, kp1, 0);
                 Thread.Sleep(5);
                 PostMessage(hwndkp, WM_KEYUP, kp1, 0);
@@ -814,18 +845,62 @@ namespace Timer
                 }
                 else
                 {
-                    Setstat("Hotkey not set");
+                    Setstat("Hotkey not set" + " \r\n");
                 }
             }
             catch
             {
-                Setstat("Hotkey Reg Error");
+                Setstat("Hotkey Reg Error" + " \r\n");
             }
         }
 
         private void btnSaveSetting_Click(object sender, EventArgs e)
         {
             iniwrite();
+        }
+
+        private void timValueRefresh_Tick(object sender, EventArgs e)
+        {
+            valueRefresh();
+        }
+
+        private void saveLogToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string swpath = ".\\" + System.DateTime.Now.ToString("yyMMdd") + "_" + System.DateTime.Now.ToString("HHmmss") + "_Timerlog.txt";
+                StreamWriter sw = new StreamWriter(swpath);
+                sw.Write(txtStatus.Text);
+                sw.Close();
+                Setstatt("Log Saved: "+swpath+"\r\n");
+            }
+            catch
+            {
+                Setstatt("Save Log Fail \r\n");
+            }
+
+        }
+
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtStatus.SelectAll();
+        }
+
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            txtStatus.Copy();
+        }
+
+        private void clearToolStripMenuItem_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                txtStatus.Text = "";
+            }
+            else
+            {
+                Setstatt("Right Click to Clear\r\n");
+            }
         }
     }
 }

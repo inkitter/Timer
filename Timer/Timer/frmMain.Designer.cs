@@ -59,13 +59,20 @@
             this.txtHotKey = new System.Windows.Forms.TextBox();
             this.btnSaveSetting = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
+            this.mnutxtPop = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuRBC.SuspendLayout();
+            this.mnutxtPop.SuspendLayout();
             this.SuspendLayout();
             // 
             // labTime
             // 
             this.labTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.labTime.Font = new System.Drawing.Font("Arial", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labTime.ForeColor = System.Drawing.Color.Black;
             this.labTime.Location = new System.Drawing.Point(1, 8);
             this.labTime.Name = "labTime";
             this.labTime.Size = new System.Drawing.Size(184, 38);
@@ -280,6 +287,7 @@
             // 
             // btnKeyPressStart
             // 
+            this.btnKeyPressStart.Enabled = false;
             this.btnKeyPressStart.Location = new System.Drawing.Point(245, 121);
             this.btnKeyPressStart.Name = "btnKeyPressStart";
             this.btnKeyPressStart.Size = new System.Drawing.Size(43, 35);
@@ -293,11 +301,11 @@
             this.txtStatus.AcceptsReturn = true;
             this.txtStatus.BackColor = System.Drawing.Color.White;
             this.txtStatus.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtStatus.ContextMenuStrip = this.mnutxtPop;
             this.txtStatus.Font = new System.Drawing.Font("微软雅黑", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.txtStatus.Location = new System.Drawing.Point(3, 163);
             this.txtStatus.Multiline = true;
             this.txtStatus.Name = "txtStatus";
-            this.txtStatus.ReadOnly = true;
             this.txtStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtStatus.Size = new System.Drawing.Size(290, 158);
             this.txtStatus.TabIndex = 14;
@@ -369,6 +377,44 @@
             this.label2.TabIndex = 21;
             this.label2.Text = "Hotkey:";
             // 
+            // mnutxtPop
+            // 
+            this.mnutxtPop.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
+            this.selectAllToolStripMenuItem,
+            this.clearToolStripMenuItem,
+            this.saveLogToolStripMenuItem});
+            this.mnutxtPop.Name = "mnutxtPop";
+            this.mnutxtPop.Size = new System.Drawing.Size(153, 114);
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.MouseDown += new System.Windows.Forms.MouseEventHandler(this.clearToolStripMenuItem_MouseDown);
+            // 
+            // saveLogToolStripMenuItem
+            // 
+            this.saveLogToolStripMenuItem.Name = "saveLogToolStripMenuItem";
+            this.saveLogToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveLogToolStripMenuItem.Text = "Save Log";
+            this.saveLogToolStripMenuItem.Click += new System.EventHandler(this.saveLogToolStripMenuItem_Click);
+            // 
+            // selectAllToolStripMenuItem
+            // 
+            this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.selectAllToolStripMenuItem.Text = "Select All";
+            this.selectAllToolStripMenuItem.Click += new System.EventHandler(this.selectAllToolStripMenuItem_Click);
+            // 
+            // copyToolStripMenuItem
+            // 
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Text = "Copy";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -414,6 +460,7 @@
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ffrmmouseup);
             this.MnuRBC.ResumeLayout(false);
             this.MnuRBC.PerformLayout();
+            this.mnutxtPop.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -450,6 +497,11 @@
         private System.Windows.Forms.TextBox txtHotKey;
         private System.Windows.Forms.Button btnSaveSetting;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ContextMenuStrip mnutxtPop;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveLogToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
     }
 }
 

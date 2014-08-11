@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Timer.exe" size="61952">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Timer.exe" size="64512">
       <assemblyIdentity name="Timer" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>05Axu6+VuY2fzVaHJDduLnUWdUZvmVUpv3gS+DGbv7A=</dsig:DigestValue>
+        <dsig:DigestValue>SRK9mxpfp756x7aRGO4k2kx+bazIOUMKnxiz6Om8de8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
